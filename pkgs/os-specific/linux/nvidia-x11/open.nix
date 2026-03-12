@@ -8,7 +8,7 @@
   hash,
   patches ? [ ],
   broken ? false,
-  mlnxOfedSymvers ? null,
+  mlnx_ofed,
 }:
 
 stdenv.mkDerivation {
@@ -31,11 +31,16 @@ stdenv.mkDerivation {
  #  postPatch to change the MLNX_OFE_KERNEL_DIR from conftest.sh to the nix/store of mlnx_ofed
  # -- # MLNX_OFED_KERNEL to nix/store
 
-
   postPatch = ''
-  substituteInPlace kernel-open/nvidia-peermem/nvidia-peermem.Kbuild \
-    --replace-fail "/usr/src/ofa_kernel" "/dummy/test"
-'';
+    substituteInPlace kernel-open/nvidia-peermem/nvidia-peermem.Kbuild \
+      --replace-fail "/usr/src/ofa_kernel" \
+      "${mlnx_ofed}/lib/modules/${kernel.modDirVersion}/extra/mlnx-ofa_kernel"
+
+    substituteInPlace kernel-open/conftest.sh \
+      --replace "/usr/src/ofa_kernel" \
+      "${mlnx_ofed}/lib/modules/${kernel.modDirVersion}/extra/mlnx-ofa_kernel"
+  '';
+
 
   makeFlags =
     kernelModuleMakeFlags
