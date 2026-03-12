@@ -479,6 +479,8 @@ in
 
         nvidiabl = callPackage ../os-specific/linux/nvidiabl { };
 
+        mlnx_ofed = callPackage ../by-name/ml/mlnx_ofed { kernel = linuxPackages.kernel; };
+
         nvidiaPackages = dontRecurseIntoAttrs (
           lib.makeExtensible (_: callPackage ../os-specific/linux/nvidia-x11 { })
         );
