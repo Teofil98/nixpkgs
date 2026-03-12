@@ -27,6 +27,17 @@ stdenv.mkDerivation (
 
     nativeBuildInputs = kernel.moduleBuildDependencies;
 
+  # TODO
+  # set OFA_DIR nvidia-peermem.Kbuild
+ #  postPatch to change the MLNX_OFE_KERNEL_DIR from conftest.sh to the nix/store of mlnx_ofed
+ # -- # MLNX_OFED_KERNEL to nix/store
+
+
+  postPatch = ''
+  substituteInPlace kernel-open/nvidia-peermem/nvidia-peermem.Kbuild \
+    --replace "/usr/src/ofa_kernel" "/dummy/test"
+'';
+
   makeFlags =
     kernelModuleMakeFlags
     ++ [
