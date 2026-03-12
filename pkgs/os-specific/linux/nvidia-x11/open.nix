@@ -33,13 +33,13 @@ stdenv.mkDerivation (
  # -- # MLNX_OFED_KERNEL to nix/store
 
   postPatch = ''
-    substituteInPlace kernel-open/nvidia-peermem/nvidia-peermem.Kbuild \
+    substituteInPlace kernel-open/nvidia-peermem/nvidia-peermem.Kbuild kernel-open/conftest.sh \
       --replace-fail "/usr/src/ofa_kernel" \
       "${mlnx_ofed}/lib/modules/${kernel.modDirVersion}/extra/mlnx-ofa_kernel"
 
-    substituteInPlace kernel-open/conftest.sh \
-      --replace-fail "/usr/src/ofa_kernel" \
-      "${mlnx_ofed}/lib/modules/${kernel.modDirVersion}/extra/mlnx-ofa_kernel"
+    #substituteInPlace kernel-open/conftest.sh \
+    #  --replace-fail "/usr/src/ofa_kernel" \
+    #  "${mlnx_ofed}/lib/modules/${kernel.modDirVersion}/extra/mlnx-ofa_kernel"
 
        # Verify the patch was applied
       grep -n "OFA_DIR" kernel-open/nvidia-peermem/nvidia-peermem.Kbuild
