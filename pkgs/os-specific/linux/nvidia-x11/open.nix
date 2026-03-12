@@ -52,9 +52,6 @@ stdenv.mkDerivation {
       "DATE="
       "TARGET_ARCH=${stdenv.hostPlatform.parsed.cpu.name}"
     ]
-     ++ lib.optionals (mlnxOfedSymvers != null) [   # <-- add this block
-      "KBUILD_EXTRA_SYMBOLS=${mlnxOfedSymvers}"
-    ]
     ++ lib.optionals stdenv.cc.isClang [
       "C_INCLUDE_PATH=${lib.getLib stdenv.cc.cc}/lib/clang/${lib.versions.major stdenv.cc.cc.version}/include"
     ];
