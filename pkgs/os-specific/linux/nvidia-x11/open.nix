@@ -43,7 +43,7 @@ stdenv.mkDerivation (
 
        # Verify the patch was applied
       grep -n "OFA_DIR" kernel-open/nvidia-peermem/nvidia-peermem.Kbuild
-      grep -n "MLNX_OFED_KERNEL_DIR" kernel-open/nvidia-peermem/nvidia-peermem.Kbuild
+      grep -n "MLNX_OFED_KERNEL_DIR" kernel-open/conftest.sh
   '';
 
 
