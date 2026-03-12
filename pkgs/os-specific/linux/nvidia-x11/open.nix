@@ -40,6 +40,10 @@ stdenv.mkDerivation (
     substituteInPlace kernel-open/conftest.sh \
       --replace-fail "/usr/src/ofa_kernel" \
       "${mlnx_ofed}/lib/modules/${kernel.modDirVersion}/extra/mlnx-ofa_kernel"
+
+       # Verify the patch was applied
+      grep -n "OFA_DIR" kernel-open/nvidia-peermem/nvidia-peermem.Kbuild
+      grep -n "MLNX_OFED_KERNEL_DIR" kernel-open/nvidia-peermem/nvidia-peermem.Kbuild
   '';
 
 
