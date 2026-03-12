@@ -48,7 +48,6 @@
   which,
   libarchive,
   jq,
-  mlnxOfedSymvers ? null,
   # Whether to build the libraries only (i.e. not the kernel module or
   # nvidia-settings).  Used to support 32-bit binaries on 64-bit
   # Linux.
@@ -216,9 +215,6 @@ stdenv.mkDerivation (finalAttrs: {
       "SYSSRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/source"
       "SYSOUT=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
     ]
-    ++ lib.optionals (mlnxOfedSymvers != null) [
-    "KBUILD_EXTRA_SYMBOLS=${mlnxOfedSymvers}"
-  ]
     ++ lib.optionals stdenv.cc.isClang [
       "C_INCLUDE_PATH=${lib.getLib stdenv.cc.cc}/lib/clang/${lib.versions.major stdenv.cc.cc.version}/include"
     ]
@@ -281,7 +277,6 @@ stdenv.mkDerivation (finalAttrs: {
         hash:
         callPackage ./open.nix {
           inherit hash;
-          inherit mlnxOfedSymvers;
           nvidia_x11 = finalAttrs.finalPackage;
           patches =
             (map (rewritePatch {
