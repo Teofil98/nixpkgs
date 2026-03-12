@@ -1195,6 +1195,8 @@ with pkgs;
 
   bump2version = with python3Packages; toPythonApplication bump2version;
 
+  mlnx_ofed = callPackage ../by-name/ml/mlnx_ofed { kernel = linuxPackages.kernel; };
+
   cgit = callPackage ../applications/version-management/cgit { };
 
   cgit-pink = callPackage ../applications/version-management/cgit/pink.nix { };
