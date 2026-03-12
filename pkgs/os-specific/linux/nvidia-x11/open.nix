@@ -33,8 +33,8 @@ stdenv.mkDerivation {
 
 
   postPatch = ''
-  substituteInPlace kernel-open/nvidia-peermem/nvidia-peermem.Kbuild \
-    --replace "/usr/src/ofa_kernel" "/dummy/test"
+  substituteInPlace wrongpath/kernel-open/nvidia-peermem/nvidia-peermem.Kbuild \
+    --replace-fail "/usr/src/ofa_kernel" "/dummy/test"
 '';
 
   makeFlags =
