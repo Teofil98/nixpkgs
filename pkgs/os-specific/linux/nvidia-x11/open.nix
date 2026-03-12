@@ -37,14 +37,14 @@ stdenv.mkDerivation (
       --replace-fail "/usr/src/ofa_kernel" \
       "${mlnx_ofed}/lib/modules/${kernel.modDirVersion}/extra/mlnx-ofa_kernel"
 
-    substituteInPlace kernel-open/conftest.sh \
-  --replace-fail \
-  'if check_for_ib_peer_memory_symbols "$OUTPUT" || \
-       check_for_ib_peer_memory_symbols "$MLNX_OFED_KERNEL_DIR/$ARCH/$KERNELRELEASE" || \
-       check_for_ib_peer_memory_symbols "$MLNX_OFED_KERNEL_DIR/$KERNELRELEASE" || \
-       check_for_ib_peer_memory_symbols "$MLNX_OFED_KERNEL_DIR/default" || \
-       check_for_ib_peer_memory_symbols "$VAR_DKMS_SOURCES_DIR"; then' \
-  'if check_for_ib_peer_memory_symbols "${mlnx_ofed}/lib/modules/${kernel.modDirVersion}/extra/mlnx-ofa_kernel"; then'
+  sed -i 's|check_for_ib_peer_memory_symbols "\$MLNX_OFED_KERNEL_DIR/\$ARCH/\$KERNELRELEASE" |check_for_ib_peer_memory_symbols "\$MLNX_OFED_KERNEL_DIR" |' \
+  kernel-open/conftest.sh
+sed -i '/check_for_ib_peer_memory_symbols "\$MLNX_OFED_KERNEL_DIR\/\$KERNELRELEASE"/d' \
+  kernel-open/conftest.sh
+sed -i '/check_for_ib_peer_memory_symbols "\$MLNX_OFED_KERNEL_DIR\/default"/d' \
+  kernel-open/conftest.sh
+sed -i '/check_for_ib_peer_memory_symbols "\$VAR_DKMS_SOURCES_DIR"/d' \
+  kernel-open/conftest.sh
 
     #substituteInPlace kernel-open/conftest.sh \
     #  --replace-fail "/usr/src/ofa_kernel" \
