@@ -38,7 +38,7 @@ stdenv.mkDerivation (
       "${mlnx_ofed}/lib/modules/${kernel.modDirVersion}/extra/mlnx-ofa_kernel"
 
     substituteInPlace kernel-open/conftest.sh \
-      --replace "/usr/src/ofa_kernel" \
+      --replace-fail "/usr/src/ofa_kernel" \
       "${mlnx_ofed}/lib/modules/${kernel.modDirVersion}/extra/mlnx-ofa_kernel"
   '';
 
