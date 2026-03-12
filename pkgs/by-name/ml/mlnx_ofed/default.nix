@@ -83,5 +83,7 @@ in
 
 		# Export symvers so downstream modules can link against our symbols
   		install -Dm644 Module.symvers $out/lib/modules/${kernel.modDirVersion}/extra/mlnx-ofa_kernel/Module.symvers
+    # Copy in out the include dir
+      cp -r include $out/lib/modules/${kernel.modDirVersion}/extra/mlnx-ofa_kernel
     '';
   }
