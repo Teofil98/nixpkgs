@@ -19,7 +19,6 @@
   usePersistenced ? true,
   useFabricmanager ? false,
   ibtSupport ? false,
-  mlnxOfedSymvers ? null,
 
   prePatch ? null,
   postPatch ? null,
@@ -49,6 +48,7 @@
   which,
   libarchive,
   jq,
+  mlnxOfedSymvers ? null,
   # Whether to build the libraries only (i.e. not the kernel module or
   # nvidia-settings).  Used to support 32-bit binaries on 64-bit
   # Linux.
