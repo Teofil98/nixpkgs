@@ -62,6 +62,11 @@ substituteInPlace kernel-open/conftest.sh \
   "           check_for_ib_peer_memory_symbols \"\$VAR_DKMS_SOURCES_DIR\"; then" \
   ""
 
+  substituteInPlace kernel-open/conftest.sh \
+  --replace-fail \
+  '#!/bin/sh' \
+  $'#!/bin/sh\nset -x'
+
 
     #substituteInPlace kernel-open/conftest.sh \
     #  --replace-fail "/usr/src/ofa_kernel" \
